@@ -34,6 +34,12 @@ export const LoginBox = styled.div`
 
 export const Title = styled.h1`
   text-align: center;
+  color: #ff6600;
+  margin-top: 10px;
+`;
+
+export const Subtitle = styled.h2`
+  text-align: center;
   color: #58a4b0;
   margin-top: 10px;
 `;
@@ -107,6 +113,7 @@ export const DashboardContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
+  width: 100vw;
 `;
 
 export const FilterContainer = styled.div`
@@ -121,10 +128,41 @@ export const YearSelect = styled.select`
 
 export const ChartContainer = styled.div`
   width: 100%;
-  max-width: 800px; /* Define a largura máxima para o gráfico */
+  max-width: 800px;
   height: 400px;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+export const ContentWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px;
+`;
+
+export const Card = styled.div`
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100px;
+  gap: 4px;
+`;
+
+export const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 300px;
+  width: 100%;
 `;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title as ChartTitle, Tooltip, Legend } from 'chart.js';
 import withAuth from "../hoc/withAuth";
-import { ChartContainer, DashboardContainer, FilterContainer, Title, YearSelect } from "../styles/styles";
+import { ChartContainer, DashboardContainer, FilterContainer, Title, YearSelect, Card, ContentWrapper, CardContainer } from "../styles/styles";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ChartTitle, Tooltip, Legend);
 
@@ -31,8 +31,12 @@ function formatAmount(amountString: string): number {
 function Dashboard() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [selectedYear, setSelectedYear] = useState<string>("2023");
+  const [selectedAccount, setSelectedAccount] = useState<string>("");
+  const [selectedIndustry, setSelectedIndustry] = useState<string>("");
+  const [selectedState, setSelectedState] = useState<string>("");
   const [chartData, setChartData] = useState<any>(null);
   const [availableYears, setAvailableYears] = useState<any[]>([]);
+  const [balance, setBalance] = useState<number>(0);
 
   useEffect(() => {
     fetch("/transactions.json")
@@ -55,13 +59,29 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    const filteredTransactions = transactions.filter(transaction =>
-      transaction.date.split("/")[2] === selectedYear
-    );
+    const filteredTransactions = transactions.filter(transaction => {
+      const isYearMatch = transaction.date.split("/")[2] === selectedYear;
+      const isAccountMatch = selectedAccount ? transaction.account === selectedAccount : true;
+      const isIndustryMatch = selectedIndustry ? transaction.industry === selectedIndustry : true;
+      const isStateMatch = selectedState ? transaction.state === selectedState : true;
 
+      return isYearMatch && isAccountMatch && isIndustryMatch && isStateMatch;
+    });
+
+    const totalDeposits = filteredTransactions
+      .filter(transaction => transaction.transaction_type === "deposit")
+      .reduce((sum, transaction) => sum + transaction.amount, 0);
+
+    const totalWithdrawals = filteredTransactions
+      .filter(transaction => transaction.transaction_type === "withdraw")
+      .reduce((sum, transaction) => sum + transaction.amount, 0);
+
+    setBalance(totalDeposits - totalWithdrawals);
+
+    const months = Array.from({ length: 12 }, (_, i) => i + 1);
     const monthLabels = [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
     ];
 
     const monthlyDeposits = Array(12).fill(0);
@@ -91,7 +111,7 @@ function Dashboard() {
         },
       ],
     });
-  }, [transactions, selectedYear]);
+  }, [transactions, selectedYear, selectedAccount, selectedIndustry, selectedState]);
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedYear(event.target.value);
@@ -104,35 +124,47 @@ function Dashboard() {
       <FilterContainer>
         <label htmlFor="year-select">Select the year:</label>
         <YearSelect id="year-select" value={selectedYear} onChange={handleYearChange}>
-          {availableYears.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
+          {availableYears.map(year => (
+            <option key={year} value={year}>{year}</option>
           ))}
         </YearSelect>
+
+        <label htmlFor="account-select">Select Account:</label>
+        <select id="account-select" value={selectedAccount} onChange={(e) => setSelectedAccount(e.target.value)}>
+          <option value="">All Accounts</option>
+          {Array.from(new Set(transactions.map(t => t.account))).map(account => (
+            <option key={account} value={account}>{account}</option>
+          ))}
+        </select>
+
+        <label htmlFor="industry-select">Select Industry:</label>
+        <select id="industry-select" value={selectedIndustry} onChange={(e) => setSelectedIndustry(e.target.value)}>
+          <option value="">All Industries</option>
+          {Array.from(new Set(transactions.map(t => t.industry))).map(industry => (
+            <option key={industry} value={industry}>{industry}</option>
+          ))}
+        </select>
+
+        <label htmlFor="state-select">Select State:</label>
+        <select id="state-select" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
+          <option value="">All States</option>
+          {Array.from(new Set(transactions.map(t => t.state))).map(state => (
+            <option key={state} value={state}>{state}</option>
+          ))}
+        </select>
       </FilterContainer>
+
+      <ContentWrapper>
+        <CardContainer>
+          <Card>
+            <h2>Balance: {balance}</h2>
+          </Card>
+        </CardContainer>
+      </ContentWrapper>
 
       {chartData && (
         <ChartContainer>
-          <Bar
-            data={chartData}
-            options={{
-              responsive: true,
-              scales: {
-                y: {
-                  stacked: true,
-                },
-                x: {
-                  stacked: true,
-                },
-              },
-              plugins: {
-                legend: {
-                  position: 'top',
-                },
-              },
-            }}
-          />
+          <Bar data={chartData} />
         </ChartContainer>
       )}
     </DashboardContainer>
