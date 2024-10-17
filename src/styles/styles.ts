@@ -118,6 +118,8 @@ export const DashboardContainer = styled.div`
 
 export const FilterContainer = styled.div`
   margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
 `;
 
 export const YearSelect = styled.select`
@@ -165,4 +167,31 @@ export const CardContainer = styled.div`
   gap: 20px;
   max-width: 300px;
   width: 100%;
+`;
+
+export const StyledLabel = styled.label`
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
+  color: #ff6600;
+  font-weight: 600;
+`;
+
+export const StyledSelect = styled.select`
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  font-size: 16px;
+  margin: 5px 0;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #66afe9;
+  }
+`;
+
+export const SelectWrapper = styled.div`
+  margin-bottom: 1rem;
 `;

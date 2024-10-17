@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title as ChartTitle, Tooltip, Legend } from 'chart.js';
 import withAuth from "../hoc/withAuth";
-import { ChartContainer, DashboardContainer, FilterContainer, Title, YearSelect, Card, ContentWrapper, CardContainer } from "../styles/styles";
+import { ChartContainer, DashboardContainer, FilterContainer, Title, YearSelect, Card, ContentWrapper, CardContainer, StyledLabel, StyledSelect, SelectWrapper } from "../styles/styles";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ChartTitle, Tooltip, Legend);
 
@@ -37,6 +37,9 @@ function Dashboard() {
   const [chartData, setChartData] = useState<any>(null);
   const [availableYears, setAvailableYears] = useState<any[]>([]);
   const [balance, setBalance] = useState<number>(0);
+  const [totalDeposits, setTotalDeposits] = useState<number>(0);
+  const [totalWithdrawals, setTotalWithdrawals] = useState<number>(0);
+
 
   useEffect(() => {
     fetch("/transactions.json")
@@ -77,6 +80,8 @@ function Dashboard() {
       .reduce((sum, transaction) => sum + transaction.amount, 0);
 
     setBalance(totalDeposits - totalWithdrawals);
+    setTotalDeposits(totalDeposits);
+    setTotalWithdrawals(totalWithdrawals);
 
     const months = Array.from({ length: 12 }, (_, i) => i + 1);
     const monthLabels = [
@@ -122,51 +127,62 @@ function Dashboard() {
       <Title>Dashboard</Title>
 
       <FilterContainer>
-        <label htmlFor="year-select">Select the year:</label>
-        <YearSelect id="year-select" value={selectedYear} onChange={handleYearChange}>
-          {availableYears.map(year => (
-            <option key={year} value={year}>{year}</option>
-          ))}
-        </YearSelect>
+        <SelectWrapper>
+          <StyledLabel htmlFor="year-select">Year:</StyledLabel>
+          <StyledSelect id="year-select" value={selectedYear} onChange={handleYearChange}>
+            {availableYears.map(year => (
+              <option key={year} value={year}>{year}</option>
+            ))}
+          </StyledSelect>
+        </SelectWrapper>
 
-        <label htmlFor="account-select">Select Account:</label>
-        <select id="account-select" value={selectedAccount} onChange={(e) => setSelectedAccount(e.target.value)}>
-          <option value="">All Accounts</option>
-          {Array.from(new Set(transactions.map(t => t.account))).map(account => (
-            <option key={account} value={account}>{account}</option>
-          ))}
-        </select>
+        <SelectWrapper>
+          <StyledLabel htmlFor="account-select">Account:</StyledLabel>
+          <StyledSelect id="account-select" value={selectedAccount} onChange={(e) => setSelectedAccount(e.target.value)}>
+            <option value="">All Accounts</option>
+            {Array.from(new Set(transactions.map(t => t.account))).map(account => (
+              <option key={account} value={account}>{account}</option>
+            ))}
+          </StyledSelect>
+        </SelectWrapper>
 
-        <label htmlFor="industry-select">Select Industry:</label>
-        <select id="industry-select" value={selectedIndustry} onChange={(e) => setSelectedIndustry(e.target.value)}>
-          <option value="">All Industries</option>
-          {Array.from(new Set(transactions.map(t => t.industry))).map(industry => (
-            <option key={industry} value={industry}>{industry}</option>
-          ))}
-        </select>
-
-        <label htmlFor="state-select">Select State:</label>
-        <select id="state-select" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
-          <option value="">All States</option>
-          {Array.from(new Set(transactions.map(t => t.state))).map(state => (
-            <option key={state} value={state}>{state}</option>
-          ))}
-        </select>
+        <SelectWrapper>
+          <StyledLabel htmlFor="industry-select">Industry:</StyledLabel>
+          <StyledSelect id="industry-select" value={selectedIndustry} onChange={(e) => setSelectedIndustry(e.target.value)}>
+            <option value="">All Industries</option>
+            {Array.from(new Set(transactions.map(t => t.industry))).map(industry => (
+              <option key={industry} value={industry}>{industry}</option>
+            ))}
+          </StyledSelect>
+        </SelectWrapper>
+        <SelectWrapper>
+          <StyledLabel htmlFor="state-select">State:</StyledLabel>
+          <StyledSelect id="state-select" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
+            <option value="">All States</option>
+            {Array.from(new Set(transactions.map(t => t.state))).map(state => (
+              <option key={state} value={state}>{state}</option>
+            ))}
+          </StyledSelect>
+        </SelectWrapper>
       </FilterContainer>
 
       <ContentWrapper>
+        <ChartContainer>
+          {chartData && <Bar data={chartData} />}
+        </ChartContainer>
+
         <CardContainer>
           <Card>
-            <h2>Balance: {balance}</h2>
+            <h3>Balance: R${balance.toFixed(2)}</h3>
+          </Card>
+          <Card>
+            <p>Total Withdrawals: R${totalWithdrawals.toFixed(2)}</p>
+          </Card>
+          <Card>
+            <p>Total Deposits: R${totalDeposits.toFixed(2)}</p>
           </Card>
         </CardContainer>
       </ContentWrapper>
-
-      {chartData && (
-        <ChartContainer>
-          <Bar data={chartData} />
-        </ChartContainer>
-      )}
     </DashboardContainer>
   );
 }
