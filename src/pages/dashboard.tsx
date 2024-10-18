@@ -168,7 +168,32 @@ function Dashboard() {
 
       <ContentWrapper>
         <ChartContainer>
-          {chartData && <Bar data={chartData} />}
+          {chartData && (
+            <Bar
+              data={chartData}
+              options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: "top",
+                  },
+                  title: {
+                    display: true,
+                    text: "Monthly Transactions",
+                  },
+                },
+                scales: {
+                  x: {
+                    stacked: true,
+                  },
+                  y: {
+                    stacked: true,
+                  },
+                },
+              }}
+            />
+          )}
+
         </ChartContainer>
 
         <CardContainer>

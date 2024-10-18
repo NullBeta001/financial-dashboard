@@ -113,7 +113,10 @@ export const DashboardContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 `;
 
 export const FilterContainer = styled.div`
@@ -144,7 +147,6 @@ export const ContentWrapper = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  padding: 20px;
 `;
 
 export const Card = styled.div`
@@ -194,4 +196,45 @@ export const StyledSelect = styled.select`
 
 export const SelectWrapper = styled.div`
   margin-bottom: 1rem;
+`;
+
+export const LayoutContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+`;
+
+export const SidebarWrapper = styled.div`
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  background-color: #2c3e50;
+  height: 100vh;
+  position: relative;
+`;
+
+export const MainContent = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+`;
+
+export const MainContentLogin = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+`;
+
+export const ContentWrapperSidebar = styled.div`
+  flex: 1;
+  height: 100%;
+  background-color: #ececec;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  padding: 20px;
 `;
