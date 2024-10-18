@@ -47,10 +47,10 @@ export const Header = styled.div`
   border-color: #ccc;
 `;
 
-export const Subtitle = styled.h2`
+export const Subtitle = styled.p`
   text-align: center;
   color: #b1b1b1;
-  font-weight: 150;
+  font-weight: 100;
 `;
 
 export const TextTitle = styled.p`
@@ -164,7 +164,7 @@ export const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   width: 100%;
   max-width: 100%;
   height: 100%;
@@ -172,7 +172,6 @@ export const DashboardContainer = styled.div`
 `;
 
 export const FilterContainer = styled.div`
-  margin-bottom: 20px;
   display: flex;
   gap: 20px;
 `;
@@ -184,29 +183,32 @@ export const YearSelect = styled.select`
 `;
 
 export const ChartContainer = styled.div`
-  width: 100%;
-  max-width: 800px;
-  height: 400px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 2px;
-`;
-
-export const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  max-width: 1200px;
+  width: 100%;
+`;
+
+export const BarChartWrapper = styled.div`
+  flex: 0.7; /* 70% da largura */
+  padding-right: 1rem;
+  height: 65vh;
+`;
+
+export const LineChartWrapper = styled.div`
+  flex: 0.3; /* 30% da largura */
+  padding-left: 1rem;
+  height: 65vh;
+`;
+export const ContentWrapper = styled.div`
+  justify-content: space-between;
   margin: 0 auto;
   width: 100%;
 `;
 
 export const Card = styled.div`
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  width: 220px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -215,10 +217,11 @@ export const Card = styled.div`
 `;
 
 export const CardContainer = styled.div`
+  margin-top: 15px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
-  max-width: 300px;
+  max-width: 900px;
   width: 100%;
 `;
 
@@ -347,6 +350,14 @@ export const Divisor = styled.div`
   background-color: #ccc;
   height: 36px;
   border-radius: 10px;
+`;
+
+export const DivisorDash = styled.div`
+  width: 1px;
+  background-color: #ccc;
+  height: 36px;
+  border-radius: 10px;
+  height: 100px;
 `;
 
 export const UserComponent = styled.div`
