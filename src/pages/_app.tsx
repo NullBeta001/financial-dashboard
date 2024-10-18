@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import Sidebar from "@/components/Sidebar";
 import { useState } from "react";
+import Header from "@/components/Header";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -31,6 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
           )}
           {shouldShowSidebar ? (
             <MainContent>
+              <Header />
               <Component {...pageProps} />
             </MainContent>
           ) : (

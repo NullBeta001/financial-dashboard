@@ -1,34 +1,56 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/router";
 
+interface User {
+  username: string;
+  password: string;
+  name: string;
+}
+
 interface AuthContextProps {
   isAuthenticated: boolean;
+  username?: string;
+  name?: string;
   login: (username: string, password: string) => boolean;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
+const users: User[] = [
+  { username: "admin", password: "pass123", name: "Fábio Oliveira" },
+  { username: "user1", password: "password1", name: "User One" },
+];
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [username, setUsername] = useState<string | undefined>();
+  const [name, setName] = useState<string | undefined>();
   const router = useRouter();
 
   useEffect(() => {
     const storedAuth = localStorage.getItem("isAuthenticated");
     if (storedAuth === "true") {
       setIsAuthenticated(true);
+      setUsername(localStorage.getItem("username") || undefined);
+      setName(localStorage.getItem("name") || undefined);
     } else {
       setIsAuthenticated(false);
     }
   }, []);
 
-  const login = (username: string, password: string) => {
-    const correctUsername = "admin";
-    const correctPassword = "pass123";
+  const login = (inputUsername: string, inputPassword: string) => {
+    const user = users.find(
+      (user) => user.username === inputUsername && user.password === inputPassword
+    );
 
-    if (username === correctUsername && password === correctPassword) {
+    if (user) {
       setIsAuthenticated(true);
+      setUsername(user.username);
+      setName(user.name);
       localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("username", user.username);
+      localStorage.setItem("name", user.name);
       router.push("/dashboard");
       return true;
     } else {
@@ -38,7 +60,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setIsAuthenticated(false);
+    setUsername(undefined);
+    setName(undefined);
     localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("username");
+    localStorage.removeItem("name");
     router.push("/");
   };
 
@@ -47,7 +73,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, username, name, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
