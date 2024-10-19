@@ -87,22 +87,6 @@ export const Button = styled.button`
   }
 `;
 
-export const SidebarContainer = styled.div`
-  width: 170px;
-  height: 100%;
-  background-color: #f9f9f9;
-  padding-top: 20px;
-  padding-right: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  left: 0;
-  color: #f9f9f9;
-  border-right: 1px solid #7f7f7f;
-  transition: all 0.52s;
-`;
-
 export const SidebarButton = styled.button`
   display: flex;
   gap: 6px;
@@ -336,15 +320,32 @@ export const LayoutContainer = styled.div`
   overflow: hidden;
 `;
 
-export const SidebarWrapper = styled.div`
+export const SidebarWrapper = styled.div<{ isVisible: boolean }>`
   position: fixed;
   top: 60px;
   left: 0;
   height: calc(100% - 60px);
   background-color: #f9f9f9;
-  z-index: 999; /* Abaixo do header */
+  z-index: 999;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  transition: 2.2s cubic-bezier(0.36, -0.01, 0, 0.77);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateX(${(props) => (props.isVisible ? "0" : "-100%")});
+  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+`;
+
+export const SidebarContainer = styled.div`
+  width: 170px;
+  height: 100%;
+  background-color: #f9f9f9;
+  padding-top: 20px;
+  padding-right: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  left: 0;
+  color: #f9f9f9;
+  border-right: 1px solid #7f7f7f;
 `;
 
 export const MainContent = styled.div`

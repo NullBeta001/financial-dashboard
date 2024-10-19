@@ -15,9 +15,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const noSidebarRoutes = ["/"];
   const shouldShowSidebar = !noSidebarRoutes.includes(router.pathname);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
   const toggleSidebar = () => {
-    setIsSidebarVisible(!isSidebarVisible);
+    setIsSidebarVisible((prev) => !prev);
   };
+
   const isLoginPage = router.pathname === "/";
 
   useEffect(() => {
@@ -40,10 +42,8 @@ export default function App({ Component, pageProps }: AppProps) {
             />
           )}
           {shouldShowSidebar && (
-            <SidebarWrapper style={{ display: isSidebarVisible ? 'block' : 'none' }}>
-              <Sidebar
-                selectedMenu={selectedMenu}
-              />
+            <SidebarWrapper isVisible={isSidebarVisible}>
+              <Sidebar selectedMenu={selectedMenu} />
             </SidebarWrapper>
           )}
           {shouldShowSidebar ? (
