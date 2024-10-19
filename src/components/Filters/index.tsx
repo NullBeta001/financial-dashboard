@@ -23,6 +23,11 @@ const Filters: React.FC<FiltersProps> = ({
   industries,
   states,
 }) => {
+
+  const sortedAccounts = [...accounts].sort();
+  const sortedIndustries = [...industries].sort();
+  const sortedStates = [...states].sort();
+
   return (
     <FilterContainer>
       <SelectWrapper>
@@ -38,7 +43,7 @@ const Filters: React.FC<FiltersProps> = ({
         <StyledLabel htmlFor="account-select">Account:</StyledLabel>
         <StyledSelect id="account-select" value={selectedAccount} onChange={(e) => setFilter("account", e.target.value)}>
           <option value="">All Accounts</option>
-          {accounts.map(account => (
+          {sortedAccounts.map(account => (
             <option key={account} value={account}>{account}</option>
           ))}
         </StyledSelect>
@@ -48,7 +53,7 @@ const Filters: React.FC<FiltersProps> = ({
         <StyledLabel htmlFor="industry-select">Industry:</StyledLabel>
         <StyledSelect id="industry-select" value={selectedIndustry} onChange={(e) => setFilter("industry", e.target.value)}>
           <option value="">All Industries</option>
-          {industries.map(industry => (
+          {sortedIndustries.map(industry => (
             <option key={industry} value={industry}>{industry}</option>
           ))}
         </StyledSelect>
@@ -58,7 +63,7 @@ const Filters: React.FC<FiltersProps> = ({
         <StyledLabel htmlFor="state-select">State:</StyledLabel>
         <StyledSelect id="state-select" value={selectedState} onChange={(e) => setFilter("state", e.target.value)}>
           <option value="">All States</option>
-          {states.map(state => (
+          {sortedStates.map(state => (
             <option key={state} value={state}>{state}</option>
           ))}
         </StyledSelect>
