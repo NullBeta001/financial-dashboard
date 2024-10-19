@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Container, Input, LoginBox, Title } from "../styles/styles";
+import { Button, Container, Input, LoginBox, StyledInputDate, Title } from "../styles/styles";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { Player } from "@lottiefiles/react-lottie-player";
@@ -28,13 +28,13 @@ export default function Home() {
           style={{ height: "120px", width: "120px" }}
         />
         <Title>Financial Dash</Title>
-        <Input
+        <StyledInputDate
           type="text"
           placeholder="Username or Email"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <Input
+        <StyledInputDate
           type="password"
           placeholder="Password"
           value={password}

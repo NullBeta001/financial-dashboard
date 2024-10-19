@@ -17,7 +17,7 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
           },
           title: {
             display: true,
-            text: "Evolução do Saldo Mensal",
+            text: "Monthly balance evolution",
           },
         },
         scales: {

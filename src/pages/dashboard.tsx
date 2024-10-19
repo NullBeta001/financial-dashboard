@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { Bar, Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title as ChartTitle, Tooltip, Legend } from 'chart.js';
 import withAuth from "../hoc/withAuth";
-import { ChartContainer, DashboardContainer, ContentWrapper, DivisorDash, BarChartWrapper, LineChartWrapper, Header } from "../styles/styles";
-import { formatCurrency } from "@/utils/formatValue";
+import { ChartContainer, DashboardContainer, ContentWrapper, DivisorDash, BarChartWrapper, LineChartWrapper, Header, HeadTitle } from "../styles/styles";
 import { useTransactions } from "@/hooks/useTransactions";
 import { useFilters } from "@/hooks/useFilters";
 import Filters from "@/components/Filters";
@@ -91,7 +89,7 @@ function Dashboard() {
       labels: monthLabels,
       datasets: [
         {
-          label: "Saldo Mensal",
+          label: "Monthly balance",
           data: monthlyBalanceData,
           fill: false,
           borderColor: "rgba(75, 192, 192, 1)",
@@ -122,7 +120,7 @@ function Dashboard() {
   return (
     <DashboardContainer>
       <Header>
-        <h1>Dashboard</h1>
+        <HeadTitle>Dashboard</HeadTitle>
         <Filters
           selectedYear={selectedYear}
           selectedAccount={selectedAccount}

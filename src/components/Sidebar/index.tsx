@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { useAuth } from "../../context/AuthContext";
 import { ComponentButton, LogoutButton, SelectButton, SidebarButton, SidebarContainer, StyledContainer, StyledSpanDash, StyledSpanFinancial, Subtitle, TextTitle, TitleName } from "../../styles/styles";
 import { ChartBar, ChartLineUp, Factory, PresentationChart, SignOut } from "phosphor-react";
-import { SubTitle } from "chart.js";
 
 interface SidebarProps {
   selectedMenu: string;
@@ -35,11 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedMenu, onChangeMenu }) => {
           </div>
         </TitleName>
         <ComponentButton>
-          {selectedMenu === "/dashboard" ?
-            <SelectButton />
-            :
-            <></>
-          }
+          {selectedMenu === "/dashboard" && <SelectButton />}
           <SidebarButton
             onClick={() => onChangeMenu({ route: "/dashboard" })}
             style={{ backgroundColor: selectedMenu === "/dashboard" ? "#ddd" : "initial", color: selectedMenu === "/dashboard" ? "#1894F3" : "initial" }}
@@ -49,11 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedMenu, onChangeMenu }) => {
           </SidebarButton>
         </ComponentButton>
         <ComponentButton>
-          {selectedMenu === "/analytics" ?
-            <SelectButton />
-            :
-            <></>
-          }
+          {selectedMenu === "/analytics" && <SelectButton />}
           <SidebarButton
             onClick={() => onChangeMenu({ route: "/analytics" })}
             style={{ backgroundColor: selectedMenu === "/analytics" ? "#ddd" : "initial", color: selectedMenu === "/analytics" ? "#1894F3" : "initial" }}
@@ -63,11 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedMenu, onChangeMenu }) => {
           </SidebarButton>
         </ComponentButton>
         <ComponentButton>
-          {selectedMenu === "/industries" ?
-            <SelectButton />
-            :
-            <></>
-          }
+          {selectedMenu === "/industries" && <SelectButton />}
           <SidebarButton
             onClick={() => onChangeMenu({ route: "/industries" })}
             style={{ backgroundColor: selectedMenu === "/industries" ? "#ddd" : "initial", color: selectedMenu === "/industries" ? "#1894F3" : "initial" }}
@@ -83,7 +70,6 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedMenu, onChangeMenu }) => {
           Logout
         </LogoutButton>
       </ComponentButton>
-
     </SidebarContainer>
   );
 };

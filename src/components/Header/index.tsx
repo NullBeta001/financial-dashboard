@@ -1,18 +1,23 @@
 import { useAuth } from "@/context/AuthContext";
-import { Divisor, HeaderContainer, UserComponent, UsernameDisplay, Tooltip } from "@/styles/styles";
-import { Info, UserCircle } from "phosphor-react";
+import { Divisor, HeaderContainer, UserComponent, UsernameDisplay, Tooltip, BarTitle } from "@/styles/styles";
+import { Info, UserCircle, List, X } from "phosphor-react";
 
-const Header = () => {
+interface HeaderProps {
+  onToggleSidebar: () => void;
+  isSidebarVisible: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ onToggleSidebar, isSidebarVisible }) => {
   const { name } = useAuth();
 
   return (
     <HeaderContainer>
-      <UserComponent>
-        <div className="info-wrapper">
-          <Info size={22} />
-          <Tooltip>Financial Dashboard: Manage your transactions and reports.</Tooltip>
-        </div>
-      </UserComponent>
+      <button onClick={onToggleSidebar} aria-label="Toggle Sidebar" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+        {isSidebarVisible ? <X size={32} color="#1894f3" /> : <List size={32} color="#1894f3" />}
+      </button>
+      <BarTitle>
+        Dashboard
+      </BarTitle>
       {name && (
         <UserComponent>
           <Divisor />
