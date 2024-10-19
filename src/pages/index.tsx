@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Container, Input, LoginBox, StyledInputDate, Title } from "../styles/styles";
+import { Button, Container, LoginBox, StyledInputDate, Title } from "../styles/styles";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { Player } from "@lottiefiles/react-lottie-player";

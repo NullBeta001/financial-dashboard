@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useAuth } from "../../context/AuthContext";
-import { ComponentButton, LogoutButton, SelectButton, SidebarButton, SidebarContainer, StyledContainer, StyledSpanDash, StyledSpanFinancial, Subtitle, TextTitle, TitleName } from "../../styles/styles";
+import { ComponentButton, LogoutButton, SelectButton, SidebarButton, SidebarContainer, StyledContainer, StyledSpanDash, StyledSpanFinancial, TextTitle, TitleName } from "../../styles/styles";
 import { ChartBar, ChartLineUp, Factory, PresentationChart, SignOut } from "phosphor-react";
 
 interface SidebarProps {

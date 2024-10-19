@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title as ChartTitle, Tooltip, Legend } from 'chart.js';
 import withAuth from "../hoc/withAuth";
-import { ChartContainer, DashboardContainer, ContentWrapper, DivisorDash, BarChartWrapper, LineChartWrapper, Header, HeadTitle } from "../styles/styles";
+import { ChartContainer, DashboardContainer, ContentWrapper, BarChartWrapper, LineChartWrapper, Header, HeadTitle } from "../styles/styles";
 import { useTransactions } from "@/hooks/useTransactions";
 import { useFilters } from "@/hooks/useFilters";
 import Filters from "@/components/Filters";
@@ -56,7 +56,6 @@ function Dashboard() {
     setTotalWithdrawals(totalWithdrawals);
     setAverageTransaction(averageTransaction);
 
-    const months = Array.from({ length: 12 }, (_, i) => i + 1);
     const monthLabels = [
       "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"

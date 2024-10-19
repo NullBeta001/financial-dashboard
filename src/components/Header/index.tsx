@@ -1,6 +1,6 @@
 import { useAuth } from "@/context/AuthContext";
-import { Divisor, HeaderContainer, UserComponent, UsernameDisplay, Tooltip, BarTitle } from "@/styles/styles";
-import { Info, UserCircle, List, X } from "phosphor-react";
+import { Divisor, HeaderContainer, UserComponent, UsernameDisplay, BarTitle } from "@/styles/styles";
+import { UserCircle, List, X } from "phosphor-react";
 
 interface HeaderProps {
   onToggleSidebar: () => void;
