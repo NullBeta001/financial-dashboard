@@ -18,7 +18,13 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #868686;
+  background: linear-gradient(
+    135deg,
+    #6a11cb 0%,
+    #2575fc 70%,
+    #246eb9 90%,
+    #23abba 100%
+  );
 `;
 
 export const LoginBox = styled.div`
