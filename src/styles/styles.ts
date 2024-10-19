@@ -66,7 +66,7 @@ export const TextTitle = styled.p`
 export const Input = styled.input`
   margin: 10px 0;
   padding: 10px;
-  border: 0.1rem #b1b1b1;
+  border: 0.1rem #7f7f7f;
   border-radius: 1px;
   font-size: 16px;
   margin-top: 15px;
@@ -99,7 +99,7 @@ export const SidebarContainer = styled.div`
   position: relative;
   left: 0;
   color: #f9f9f9;
-  border-right: 1px solid #b1b1b1;
+  border-right: 1px solid #7f7f7f;
   transition: all 0.52s;
 `;
 
@@ -440,13 +440,13 @@ export const DivisorDash = styled.div`
 
 export const Subtitle = styled.p`
   text-align: center;
-  color: #b1b1b1;
+  color: #7f7f7f;
   font-weight: 100;
 
   @media (max-width: 920px) {
     font-size: 0.8rem;
     text-align: center;
-    color: #b1b1b1;
+    color: #7f7f7f;
     font-weight: 100;
   }
 `;
