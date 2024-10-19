@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { AppProps } from "next/app";
 import { GlobalStyle, LayoutContainer, SidebarWrapper, MainContent, MainContentLogin } from "../styles/styles";
 import { AuthProvider } from "@/context/AuthContext";
@@ -18,8 +18,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
   };
-
   const isLoginPage = router.pathname === "/";
+
+  useEffect(() => {
+    setSelectedMenu(router.pathname);
+  }, [router.pathname]);
 
   return (
     <>
@@ -40,10 +43,6 @@ export default function App({ Component, pageProps }: AppProps) {
             <SidebarWrapper style={{ display: isSidebarVisible ? 'block' : 'none' }}>
               <Sidebar
                 selectedMenu={selectedMenu}
-                onChangeMenu={(newMenu) => {
-                  setSelectedMenu(newMenu.route);
-                  router.push(newMenu.route);
-                }}
               />
             </SidebarWrapper>
           )}

@@ -5,10 +5,9 @@ import { ChartBar, ChartLineUp, Factory, PresentationChart, SignOut } from "phos
 
 interface SidebarProps {
   selectedMenu: string;
-  onChangeMenu: (newMenu: { route: string }) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ selectedMenu, onChangeMenu }) => {
+const Sidebar: React.FC<SidebarProps> = ({ selectedMenu }) => {
   const router = useRouter();
   const { logout } = useAuth();
 
@@ -36,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedMenu, onChangeMenu }) => {
         <ComponentButton>
           {selectedMenu === "/dashboard" && <SelectButton />}
           <SidebarButton
-            onClick={() => onChangeMenu({ route: "/dashboard" })}
+            onClick={() => router.push("/dashboard")}
             style={{ backgroundColor: selectedMenu === "/dashboard" ? "#ddd" : "initial", color: selectedMenu === "/dashboard" ? "#1894F3" : "initial" }}
           >
             <ChartBar size={22} />
@@ -46,7 +45,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedMenu, onChangeMenu }) => {
         <ComponentButton>
           {selectedMenu === "/analytics" && <SelectButton />}
           <SidebarButton
-            onClick={() => onChangeMenu({ route: "/analytics" })}
+            onClick={() => router.push("/analytics")}
             style={{ backgroundColor: selectedMenu === "/analytics" ? "#ddd" : "initial", color: selectedMenu === "/analytics" ? "#1894F3" : "initial" }}
           >
             <ChartLineUp size={22} />
@@ -56,7 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedMenu, onChangeMenu }) => {
         <ComponentButton>
           {selectedMenu === "/industries" && <SelectButton />}
           <SidebarButton
-            onClick={() => onChangeMenu({ route: "/industries" })}
+            onClick={() => router.push("/industries")}
             style={{ backgroundColor: selectedMenu === "/industries" ? "#ddd" : "initial", color: selectedMenu === "/industries" ? "#1894F3" : "initial" }}
           >
             <Factory size={22} />
