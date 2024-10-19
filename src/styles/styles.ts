@@ -117,6 +117,10 @@ export const ComponentButton = styled.div`
 `;
 
 export const LogoutButton = styled(SidebarButton)`
+  @media (max-width: 768px) {
+    color: red;
+  }
+
   &:hover {
     background-color: red;
   }
@@ -328,7 +332,7 @@ export const SidebarWrapper = styled.div<{ isVisible: boolean }>`
   background-color: #f9f9f9;
   z-index: 999;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.4s ease, opacity 0.4s ease;
   transform: translateX(${(props) => (props.isVisible ? "0" : "-100%")});
   opacity: ${(props) => (props.isVisible ? "1" : "0")};
 `;
@@ -433,6 +437,13 @@ export const DivisorDash = styled.div`
   background-color: #ccc;
   height: 100px;
   border-radius: 10px;
+
+  @media (max-width: 920px) {
+    width: 1px;
+    background-color: #ccc;
+    height: 65px;
+    border-radius: 10px;
+  }
 
   @media (max-width: 570px) {
     display: none;
