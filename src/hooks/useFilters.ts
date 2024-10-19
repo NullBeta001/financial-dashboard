@@ -18,7 +18,6 @@ export const useFilters = (transactions: any[]) => {
     if (storedState) setSelectedState(storedState);
   }, []);
 
-  // Use useMemo to memoize filteredTransactions
   const filteredTransactions = useMemo(() => {
     return transactions.filter((transaction) => {
       const isYearMatch = transaction.date.split("/")[2] === selectedYear;
