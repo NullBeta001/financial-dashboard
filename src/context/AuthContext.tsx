@@ -18,8 +18,8 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 const users: User[] = [
-  { username: "admin", password: "pass123", name: "Fábio Oliveira" },
-  { username: "user1", password: "password1", name: "User One" },
+  { username: "admin", password: "pass123", name: "Administrator" },
+  { username: "user1", password: "passpass", name: "Fábio Oliveira" },
 ];
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
