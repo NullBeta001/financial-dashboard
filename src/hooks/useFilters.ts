@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export const useFilters = (transactions: any[]) => {
   const [selectedYear, setSelectedYear] = useState<string>("2023");
@@ -18,20 +18,29 @@ export const useFilters = (transactions: any[]) => {
     if (storedState) setSelectedState(storedState);
   }, []);
 
-  const filteredTransactions = transactions.filter((transaction) => {
-    const isYearMatch = transaction.date.split("/")[2] === selectedYear;
-    const isAccountMatch = selectedAccount
-      ? transaction.account === selectedAccount
-      : true;
-    const isIndustryMatch = selectedIndustry
-      ? transaction.industry === selectedIndustry
-      : true;
-    const isStateMatch = selectedState
-      ? transaction.state === selectedState
-      : true;
+  // Use useMemo to memoize filteredTransactions
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter((transaction) => {
+      const isYearMatch = transaction.date.split("/")[2] === selectedYear;
+      const isAccountMatch = selectedAccount
+        ? transaction.account === selectedAccount
+        : true;
+      const isIndustryMatch = selectedIndustry
+        ? transaction.industry === selectedIndustry
+        : true;
+      const isStateMatch = selectedState
+        ? transaction.state === selectedState
+        : true;
 
-    return isYearMatch && isAccountMatch && isIndustryMatch && isStateMatch;
-  });
+      return isYearMatch && isAccountMatch && isIndustryMatch && isStateMatch;
+    });
+  }, [
+    transactions,
+    selectedYear,
+    selectedAccount,
+    selectedIndustry,
+    selectedState,
+  ]);
 
   const setFilter = (filterType: string, value: string) => {
     switch (filterType) {
