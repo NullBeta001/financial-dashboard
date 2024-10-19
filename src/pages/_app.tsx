@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -22,6 +23,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head>
+        <title>Financial Dash</title>
+        <link rel="icon" href="/icon.svg" />
+      </Head>
       <AuthProvider>
         <GlobalStyle />
         <LayoutContainer>
